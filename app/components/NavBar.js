@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 import Container from "./Container";
+import NavLink from "./NavLink";
 
 export default function NavBar() {
   return (
-    <nav className=" bg-slate-100 shadow-md">
+    <nav className=" bg-slate-200 shadow-md">
       <Container className="flex items-center justify-between px-6 py-4">
         <div>
           <h1 className="text-2xl font-bold text-blue-950">
@@ -12,15 +13,15 @@ export default function NavBar() {
           </h1>
         </div>
         <div>
-          <ul className="flex space-x-4 text-xl">
+          <ul className="flex items-center space-x-6 text-xl">
             <li>
-              <a>Home</a>
+              <NavLink href="/">Home</NavLink>
             </li>
             <li>
-              <a>Movies</a>
+              <NavLink href="/movies">Movies</NavLink>
             </li>
             <li>
-              <a>My Watchlist</a>
+              <NavLink href="/watchlist">My Watchlist</NavLink>
             </li>
           </ul>
         </div>
