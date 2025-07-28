@@ -2,9 +2,17 @@ import React from "react";
 import Container from "../components/Container";
 import SearchInput from "../components/SearchInput";
 import tmdbApi from "@/lib/axios";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
-export default async function Movies() {
-  const page = 1; // You can modify this to fetch different pages
+export default async function Movies({ searchParams }) {
+  const page = parseInt(searchParams.page || "1");
   const res = await tmdbApi.get(`/discover/movie`, {
     params: {
       sort_by: "release_date.desc",
@@ -15,6 +23,7 @@ export default async function Movies() {
     },
   });
   const movies = res.data.results.filter((movie) => movie.poster_path);
+  const totalPages = res.data.total_pages;
   return (
     <Container className={"py-10"}>
       <SearchInput />
@@ -34,6 +43,27 @@ export default async function Movies() {
             <p className="text-gray-800 line-clamp-3">{movie.overview}</p>
           </div>
         ))}
+      </div>
+      <div className="mt-8 flex justify-center">
+        <Pagination>
+          <PaginationContent>
+            {page > 1 && (
+              <PaginationItem>
+                <PaginationPrevious href={`/movies?page=${page - 1}`} />
+              </PaginationItem>
+            )}
+
+            <PaginationItem>
+              <PaginationLink isActive>{page}</PaginationLink>
+            </PaginationItem>
+
+            {page < totalPages && (
+              <PaginationItem>
+                <PaginationNext href={`/movies?page=${page + 1}`} />
+              </PaginationItem>
+            )}
+          </PaginationContent>
+        </Pagination>
       </div>
     </Container>
   );
