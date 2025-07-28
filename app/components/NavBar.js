@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
 import React from "react";
 import Container from "./Container";
 import NavLink from "./NavLink";
+import { Button } from "@/app/components/ui/button";
 
 export default function NavBar() {
   return (
