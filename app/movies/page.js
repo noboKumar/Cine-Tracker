@@ -16,15 +16,26 @@ import Image from "next/image";
 export default async function Movies({ searchParams }) {
   const params = await searchParams;
   const page = parseInt(params.page || "1");
-  const res = await tmdbApi.get(`/discover/movie`, {
-    params: {
-      sort_by: "release_date.desc",
-      page,
-      "primary_release_date.lte": new Date().toISOString().split("T")[0], // only released
-      with_release_type: "2|3", // 2 = digital, 3 = theatrical
-      "vote_count.gte": 10, // must have votes
-    },
-  });
+  const query = params.query || "";
+  let res;
+  if (query) {
+    res = await tmdbApi.get(`/search/movie`, {
+      params: {
+        query,
+        page,
+      },
+    });
+  } else {
+    res = await tmdbApi.get(`/discover/movie`, {
+      params: {
+        sort_by: "release_date.desc",
+        page,
+        "primary_release_date.lte": new Date().toISOString().split("T")[0], // only released
+        with_release_type: "2|3", // 2 = digital, 3 = theatrical
+        "vote_count.gte": 10, // must have votes
+      },
+    });
+  }
   const movies = res.data.results.filter((movie) => movie.poster_path);
   console.log(movies);
   const totalPages = res.data.total_pages;
