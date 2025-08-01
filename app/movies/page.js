@@ -10,9 +10,12 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import Link from "next/link";
+import Image from "next/image";
 
 export default async function Movies({ searchParams }) {
-  const page = parseInt(searchParams.page || "1");
+  const params = await searchParams;
+  const page = parseInt(params.page || "1");
   const res = await tmdbApi.get(`/discover/movie`, {
     params: {
       sort_by: "release_date.desc",
@@ -23,6 +26,7 @@ export default async function Movies({ searchParams }) {
     },
   });
   const movies = res.data.results.filter((movie) => movie.poster_path);
+  console.log(movies);
   const totalPages = res.data.total_pages;
   return (
     <Container className={"py-10"}>
@@ -33,14 +37,23 @@ export default async function Movies({ searchParams }) {
             key={movie.id}
             className="bg-slate-100 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
           >
-            <img
+            <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
+              width={500}
+              height={700}
               className="w-full h-auto rounded-lg mb-4"
             />
-            <h2 className="text-xl font-bold">{movie.title}</h2>
-            <p className="text-gray-600">{movie.release_date}</p>
-            <p className="text-gray-800 line-clamp-3">{movie.overview}</p>
+            <div className="space-y-4">
+              <h2 className="text-xl font-bold">{movie.title}</h2>
+              <p className="text-gray-600">{movie.release_date}</p>
+              <p className="text-gray-800 line-clamp-3">{movie.overview}</p>
+              <Link href={`/movies/${movie.id}`}>
+                <button className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600 transition-colors duration-200">
+                  Details
+                </button>
+              </Link>
+            </div>
           </div>
         ))}
       </div>
