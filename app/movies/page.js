@@ -53,7 +53,7 @@ export default async function Movies({ searchParams }) {
               alt={movie.title}
               width={500}
               height={700}
-              className="w-full h-auto rounded-lg mb-4"
+              className="w-full h-auto rounded-lg mb-4 hover:scale-105 duration-150 transition overflow-hidden"
             />
             <div className="space-y-4">
               <h2 className="text-xl font-bold">{movie.title}</h2>

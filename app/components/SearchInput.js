@@ -20,7 +20,7 @@ export default function SearchInput() {
         placeholder="Search for movies..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="border px-4 py-2 rounded w-full"
+        className="border px-4 py-2 rounded-lg w-full"
       />
       <button
         type="submit"
