@@ -58,6 +58,7 @@ export default async function Movies({ searchParams }) {
             <div className="space-y-4">
               <h2 className="text-xl font-bold">{movie.title}</h2>
               <p className="text-gray-600">{movie.release_date}</p>
+              <p className="font-semibold">⭐ {movie.vote_average.toFixed(1)} / 10</p>
               <p className="text-gray-800 line-clamp-3">{movie.overview}</p>
               <Link href={`/movies/${movie.id}`}>
                 <button className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600 transition-colors duration-200">

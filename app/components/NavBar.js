@@ -1,7 +1,8 @@
 import React from "react";
 import Container from "./Container";
 import NavLink from "./NavLink";
-import { Button } from "@/app/components/ui/button";
+import LoginButton from "./LoginButton";
+import UserInfo from "./UserInfo";
 
 export default function NavBar() {
   return (
@@ -26,7 +27,7 @@ export default function NavBar() {
           </ul>
         </div>
         <div>
-          <Button>login</Button>
+          <LoginButton></LoginButton>
         </div>
       </Container>
     </nav>
