@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/pagination";
 import Link from "next/link";
 import Image from "next/image";
+import { MdOutlineBookmarkAdd } from "react-icons/md";
 
 export default async function Movies({ searchParams }) {
   const params = await searchParams;
@@ -46,7 +47,7 @@ export default async function Movies({ searchParams }) {
         {movies.map((movie) => (
           <div
             key={movie.id}
-            className="bg-slate-100 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+            className="bg-slate-100 p-5 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
           >
             <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -56,9 +57,14 @@ export default async function Movies({ searchParams }) {
               className="w-full h-auto rounded-lg mb-4 hover:scale-105 duration-150 transition overflow-hidden"
             />
             <div className="space-y-4">
-              <h2 className="text-xl font-bold">{movie.title}</h2>
-              <p className="text-gray-600">{movie.release_date}</p>
-              <p className="font-semibold">⭐ {movie.vote_average.toFixed(1)} / 10</p>
+              <div className="flex justify-between gap-2 py-2">
+                <h2 className="text-xl font-bold">{movie.title}</h2>
+                <MdOutlineBookmarkAdd className="cursor-pointer" size={30} />
+              </div>
+              <p className="text-gray-600">Release Date: {movie.release_date}</p>
+              <p className="font-semibold">
+                ⭐ {movie.vote_average.toFixed(1)} / 10
+              </p>
               <p className="text-gray-800 line-clamp-3">{movie.overview}</p>
               <Link href={`/movies/${movie.id}`}>
                 <button className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-600 transition-colors duration-200">
