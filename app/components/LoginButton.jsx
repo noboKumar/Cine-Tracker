@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 
 const LoginButton = () => {
   const { data: session, status } = useSession();
@@ -24,9 +25,17 @@ const LoginButton = () => {
     );
   }
   return (
-    <Button className="cursor-pointer" onClick={() => signIn()}>
-      Login
-    </Button>
+    <div className="flex items-center gap-2">
+      <Link href={"/login"}>
+        <Button className="cursor-pointer" onClick={() => signIn()}>
+          Login
+        </Button>
+      </Link>
+      <div className="font-semibold">Or</div>
+      <Link href={"/signup"}>
+        <Button>Sign up</Button>
+      </Link>
+    </div>
   );
 };
 
