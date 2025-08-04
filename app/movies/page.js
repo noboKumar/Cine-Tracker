@@ -12,7 +12,8 @@ import {
 } from "@/components/ui/pagination";
 import Link from "next/link";
 import Image from "next/image";
-import { MdOutlineBookmarkAdd } from "react-icons/md";
+import BookMarkButton from "../components/BookMarkButton";
+import { Toaster } from "react-hot-toast";
 
 export default async function Movies({ searchParams }) {
   const params = await searchParams;
@@ -38,10 +39,10 @@ export default async function Movies({ searchParams }) {
     });
   }
   const movies = res.data.results.filter((movie) => movie.poster_path);
-  console.log(movies);
   const totalPages = res.data.total_pages;
   return (
     <Container className={"py-10"}>
+      <Toaster></Toaster>
       <SearchInput />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
         {movies.map((movie) => (
@@ -59,9 +60,11 @@ export default async function Movies({ searchParams }) {
             <div className="space-y-4">
               <div className="flex justify-between gap-2 py-2">
                 <h2 className="text-xl font-bold">{movie.title}</h2>
-                <MdOutlineBookmarkAdd className="cursor-pointer" size={30} />
+                <BookMarkButton id={movie.id}></BookMarkButton>
               </div>
-              <p className="text-gray-600">Release Date: {movie.release_date}</p>
+              <p className="text-gray-600">
+                Release Date: {movie.release_date}
+              </p>
               <p className="font-semibold">
                 ⭐ {movie.vote_average.toFixed(1)} / 10
               </p>
