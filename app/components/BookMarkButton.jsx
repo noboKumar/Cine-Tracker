@@ -5,7 +5,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import { MdOutlineBookmarkAdd } from "react-icons/md";
 
-const BookMarkButton = (id) => {
+const BookMarkButton = ({id}) => {
   const { data: session, status } = useSession();
   const handleBookMark = async () => {
     if (status !== "authenticated") {
